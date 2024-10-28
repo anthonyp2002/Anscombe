@@ -1,0 +1,45 @@
+---
+title: "Universidad Politenica Salesiana"
+author: "Anthony Damian Pulla Sanchez"
+date: "2024-09-23"
+output: html_document
+---
+
+---
+En este análisis, aplicamos una regresión lineal para modelar la relación entre las variables x e y en el dataset "high_lines" del conjunto Datasaurus Dozen. A continuación, se presenta un gráfico con los puntos de datos junto a la línea de regresión ajustada, mostrando cómo se comportan ambos valores en este conjunto específico.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Cargamos las librerias 
+```{r}
+library(datasauRus)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+dfgrupos<-datasaurus_dozen %>%
+  filter(dataset=='high_lines')
+modelo_lineal <- lm(y ~ x, data = dfgrupos)
+```
+
+
+```{r}
+summary(dfgrupos)
+```
+```{r}
+ggplot(dfgrupos, aes(x = x, y = y)) +
+  geom_point(colour = "blue") + 
+  geom_smooth(method = "lm", se = FALSE, colour = "red") +
+  labs(title = "Regresion lineal en el dataset 'high_lines'",
+       x = "X",
+       y = "Y") +
+  theme_minimal()
+```
+
+
+
+

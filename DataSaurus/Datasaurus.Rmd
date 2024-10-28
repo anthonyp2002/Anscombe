@@ -1,0 +1,53 @@
+---
+title: "Universidad Politenica Salesiana"
+author: "Anthony Damian Pulla Sanchez"
+date: "2024-09-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Cargamos las librerias 
+```{r}
+library(datasauRus)
+library(dplyr)
+library(ggplot2)
+```
+
+Resumen del dataset
+```{r}
+datasaurus_dozen %>% 
+    group_by(dataset) %>% 
+    summarize(
+      mean_x    = mean(x),
+      mean_y    = mean(y),
+      std_dev_x = sd(x),
+      std_dev_y = sd(y),
+      corr_x_y  = cor(x, y)
+    )
+``` 
+
+Grafica
+```{r}
+ggplot(datasaurus_dozen, aes(x = x, y = y, colour = dataset)) +
+    geom_point() +
+    theme_void() +
+    theme(legend.position = "none") +
+    facet_wrap(~dataset, ncol = 3)
+```
+```{r}
+ggplot(datasaurus_dozen, aes(x = x, y = y, colour = dataset)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE, color = "black") + # Agrega la línea de regresión
+    theme_void() +
+    theme(legend.position = "none") +
+    facet_wrap(~dataset, ncol = 3)
+```
+
+
+
+
+
+
